@@ -4,52 +4,64 @@
 public class Stat
 {
     /**
-     * The rating from 1 to 5 of the Stat
+     * The value of the Stat from 1 to 5
      */
-    private int rating;
+    private int value;
     
     /**
-     * A short justification for the rating
+     * A brief justification for the value
      */
     private String details;
 
     /**
-     * Sets the rating for the Stat
-     * 
-     * @param r The rating to which rating should be set to
-     * @return true if the rating is valid, false otherwise
+     * An array of tags associated with the justification (for easy sorting)
      */
-    public boolean rate(final int r) {
-        if (r < 1 || r > 5)
-            return false;
-        rating = r;
-        return true;
-    }
+    private String[] tags;
 
     /**
-     * @return rating
-     */
-    public getRating() {
-        return rating;
-    }
-
-    /**
-     * Sets the details for the rating
+     * Constructor for a Stat
      * 
-     * @param d The details to set to
-     * @return true is the details are valid (i.e. non-empty), false otherwise
+     * @param value The value of the stat from 1 to 5 (w/ validation)
+     * @param details The justification for the value
+     * @param tags The tags as a single string (raw input, to be parsed into an array of String tags)
      */
-    public boolean setDetails(final String d) {
-        if (d.isEmpty())
-            return false;
-        details = d;
-        return true;
+    public Stat(final int value, final String details, final String tags) {
+        if (value > 1 && value < 5)
+            this.value = value;
+        else {
+            System.out.println("Invalid value " + value);
+            return;
+        }
+
+        if (details.isEmpty())
+            this.details = null;
+        else
+            this.details = details;
+
+        if (tags.isEmpty())   
+            this.tags = null;
+        else
+            this.tags = tags.split(", ");
+    }
+    
+    /**
+     * @return value
+     */
+    public int getValue() {
+        return value;
     }
 
     /**
      * @return details
      */
-    public getDetails() {
+    public String getDetails() {
         return details;
+    }
+
+    /**
+     * @return tags
+     */
+    public String[] getTags() {
+        return tags;
     }
 }
